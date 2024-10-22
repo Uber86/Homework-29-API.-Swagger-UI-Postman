@@ -14,7 +14,7 @@ public class FacultyService {
     private long counter = 0;
 
     public Faculty create(Faculty faculty) {
-        faculty.setId(++counter);;
+        faculty.setId(++counter);
         facultys.put(faculty.getId(), faculty);
         return faculty;
     }
