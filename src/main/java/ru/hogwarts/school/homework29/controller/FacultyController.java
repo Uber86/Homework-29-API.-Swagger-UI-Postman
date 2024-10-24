@@ -46,14 +46,14 @@ public class FacultyController {
 
     @DeleteMapping ("{id}")
     public ResponseEntity<Faculty> delate(@PathVariable Long id) {
-        Faculty delateFuculty = service.delete(id);
-        return ResponseEntity.ok(delateFuculty);
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
     public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
         if (color != null && !color.isBlank()) {
-            return ResponseEntity.ok(service.findByColor(color));
+            return ResponseEntity.ok(service.findColor(color));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
