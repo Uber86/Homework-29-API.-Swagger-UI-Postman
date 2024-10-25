@@ -4,10 +4,12 @@ package ru.hogwarts.school.homework29.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Objects;
 
 @Entity
+@Table  (name = "student")
 public class Student {
 
     @Id
