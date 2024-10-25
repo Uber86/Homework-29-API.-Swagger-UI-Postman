@@ -3,23 +3,23 @@ package ru.hogwarts.school.homework29.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.hogwarts.school.homework29.model.Faculty;
-import java.util.HashMap;
-import java.util.Map;
+import ru.hogwarts.school.homework29.model.Student;
+
 import java.util.Objects;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FacultyServiceTest {
-    FacultyService service = new FacultyService();
+class StudentServiceTest {
+
+    StudentService service = new StudentService();
 
 
     @BeforeEach
     void title(){
-        var q = new Faculty(1, "last1", "lsat1");
-        var w = new Faculty(2, "last2", "lsat2");
-        var e = new Faculty(3, "last3", "lsat3");
+        var q = new Student(1, "last1", 10);
+        var w = new Student(2, "last2", 12);
+        var e = new Student(3, "last3", 15);
         service.create(q);
         service.create(w);
         service.create(e);
@@ -27,29 +27,29 @@ class FacultyServiceTest {
 
     @Test
     void createTest() {
-        var e = new Faculty(4, "last4", "lsat4");
+        var e = new Student(4, "last4", 16);
         service.create(e);
         assertNotNull(e);
     }
 
     @Test
     void getTest() {
-        var e = new Faculty(3, "last3", "lsat3");
+        var e = new Student(3, "last3", 15);
         service.create(e);
         assertSame(service.get(4), e);
     }
 
     @Test
     void NoGetTest() {
-        var e = new Faculty(3, "last3", "lsat3");
+        var e = new Student(3, "last3", 15);
         service.create(e);
-        var a = new Faculty(0, "last3", "lsat3");
+        var a = new Student(3, "last3", 16);
         assertNotSame(service.get(4), a);
     }
 
     @Test
     void geteqTest() {
-        var e = new Faculty(2, "last2", "lsat2");
+        var e = new Student(2, "last2", 12);
         assertEquals(service.get(2) , e );
     }
 
@@ -68,17 +68,17 @@ class FacultyServiceTest {
 
     @Test
     void nullUpdateTest() {
-        var b = new Faculty(4, "last3", "lsat2");
-        var a = service.update(new Faculty(4, "last3", "lsat2"));
-        assertNull(service.update(new Faculty(5, "last3", "lsat2")));
+        var b = new Student(4, "last3", 17);
+        var a = service.update(new Student(4, "last3", 17));
+        assertNull(service.update(new Student(5, "last3", 16)));
         assertNull(a);
 
     }
 
     @Test
     void colorTest() {
-        var f = "lsat3";
-        var a = service.findByColor(f);
+        var f = 15;
+        var a = service.findByAge(f);
         var b = service.get(3);
         assertThat(Objects.equals(a, b));
     }
@@ -86,8 +86,8 @@ class FacultyServiceTest {
     @Test
     void updateTest() {
 
-        var b = new Faculty(4, "last3", "lsat2");
-        var a = new Faculty(4, "last2", "lsat2");
+        var b = new Student(4, "last3", 10);
+        var a = new Student(4, "last2", 15);
         service.create(a);
         service.update(b);
         assertEquals(b,service.get(4));
