@@ -4,17 +4,22 @@ package ru.hogwarts.school.homework29.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "faculty")
+@Table (name = "faculty")
 public class Faculty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     private String name;
     private String color;
+
+    @OneToMany
+    @JoinColumn(name="position")
+    private Set<Student> students;
 
     public Faculty() {
     }

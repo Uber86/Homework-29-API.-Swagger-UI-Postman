@@ -40,21 +40,9 @@ public class StudentService {
         return studentRepository.findByAge(age);
     }
 
-    public Collection<Student> findAgeMax(int age) {
-        return studentRepository.findByAgeMax(age);
-    }
 
-    public Collection<Student> findAgeMin(int age) {
-        return studentRepository.findByAgeMin(age);
-    }
-
-    public Collection<Student> findByAgeBetween(int minAge, int maxAge) {
-        Collection<Student> between = new ArrayList<>();
-        while (minAge < maxAge) {
-            between = studentRepository.findByAgeMin(minAge);
-            minAge++;
-        }
-        return between;
+    public Collection<Student> findBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
     }
 
 

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.homework29.model.Faculty;
+import ru.hogwarts.school.homework29.model.Student;
 import ru.hogwarts.school.homework29.service.FacultyService;
 
 import java.util.Collection;
@@ -21,8 +22,8 @@ public class FacultyController {
 
     @PostMapping
     public ResponseEntity<Faculty> create(@RequestBody Faculty faculty) {
-        Faculty createStudent = service.create(faculty);
-        return ResponseEntity.ok(createStudent);
+        Faculty createFaculty = service.create(faculty);
+        return ResponseEntity.ok(createFaculty);
     }
 
     @GetMapping ("{id}")
@@ -51,10 +52,7 @@ public class FacultyController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
-        if (color != null && !color.isBlank()) {
-            return ResponseEntity.ok(service.findColor(color));
-        }
-        return ResponseEntity.ok(Collections.emptyList());
+    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
+        return ResponseEntity.ok(service.findByNameOrColor(name, color));
     }
 }
