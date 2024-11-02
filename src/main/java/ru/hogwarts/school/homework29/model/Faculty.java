@@ -17,6 +17,7 @@ public class Faculty {
     private String name;
     private String color;
 
+
     @OneToMany
     @JoinColumn(name="position")
     private Set<Student> students;
