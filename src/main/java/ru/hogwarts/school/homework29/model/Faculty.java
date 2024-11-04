@@ -18,8 +18,7 @@ public class Faculty {
     private String color;
 
 
-    @OneToMany
-    @JoinColumn(name="position")
+    @OneToMany(mappedBy = "faculty")
     private Set<Student> students;
 
     public Faculty() {
