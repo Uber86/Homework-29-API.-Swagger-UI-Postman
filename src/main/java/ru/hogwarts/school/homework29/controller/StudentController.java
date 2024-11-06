@@ -2,7 +2,6 @@ package ru.hogwarts.school.homework29.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hogwarts.school.homework29.model.Faculty;
 import ru.hogwarts.school.homework29.model.Student;
 import ru.hogwarts.school.homework29.service.StudentService;
 
@@ -22,7 +21,7 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Student> create(@RequestBody Student student) {
         Student createStudent = service.create(student);
-        return ResponseEntity.ok(student);
+        return ResponseEntity.ok(createStudent);
     }
 
     @GetMapping ("{id}")
@@ -45,16 +44,16 @@ public class StudentController {
 
     @DeleteMapping ("{id}")
     public ResponseEntity<Student> delete(@PathVariable Long id) {
-        Student studentDel = service.delete(id);
-        return ResponseEntity.ok(studentDel);
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age) {
-        if (age > 0) {
-            return ResponseEntity.ok(service.findByAge(age));
-        }
-        return ResponseEntity.ok(Collections.emptyList());
+    public ResponseEntity<Collection<Student>> findStudents(@RequestParam int minAge, @RequestParam int maxAge) {
+        return ResponseEntity.ok(service.findBetween(minAge , maxAge));
+
+
+
     }
 
 

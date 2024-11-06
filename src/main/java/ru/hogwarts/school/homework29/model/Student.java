@@ -1,11 +1,28 @@
 package ru.hogwarts.school.homework29.model;
 
+
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table  (name = "student")
 public class Student {
+
+    @Id
+    @GeneratedValue
     private long id;
+
     private String name;
     private int age;
+
+
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
+    public Student() {
+    }
 
     public Student(long id, String name, int age) {
         this.id = id;
