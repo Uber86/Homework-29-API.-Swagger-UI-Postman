@@ -28,6 +28,7 @@ public class StudentController {
         this.service = service;
     }
 
+
     @PostMapping
     public ResponseEntity<Student> create(@RequestBody Student student) {
         Student createStudent = service.create(student);

@@ -4,11 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.homework29.model.Faculty;
-import ru.hogwarts.school.homework29.model.Student;
 import ru.hogwarts.school.homework29.service.FacultyService;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @RequestMapping(path = "/faculty")
 @RestController
@@ -19,6 +17,7 @@ public class FacultyController {
     public FacultyController(FacultyService service) {
         this.service = service;
     }
+
 
     @PostMapping
     public ResponseEntity<Faculty> create(@RequestBody Faculty faculty) {

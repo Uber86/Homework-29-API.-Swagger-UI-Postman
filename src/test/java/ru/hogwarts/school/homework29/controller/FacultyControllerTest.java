@@ -86,7 +86,6 @@ class FacultyControllerTest {
         );
 
 
-
         assertNotNull(facultyResponseEntity);
 
         assertEquals(facultyResponseEntity.getStatusCode(),
