@@ -11,7 +11,8 @@ import ru.hogwarts.school.homework29.model.Faculty;
 import ru.hogwarts.school.homework29.repositories.FacultyRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class FacultyControllerTest {
@@ -106,23 +107,36 @@ class FacultyControllerTest {
     @Test
     void shouldPutFaculty() {
 
-        faculty = facultyRepository.save(faculty);
+        Faculty newFaculty = new Faculty(10, "Yellow", "Blue");
 
-        Faculty updated = new Faculty(1,"Yellow", "Green");
-
-        ResponseEntity<Faculty> response = restTemplate.exchange(
-                String.format("http://localhost:" + port + "/faculty"),
-                HttpMethod.PUT,
-                new HttpEntity<>(updated),
+        Faculty createdFaculty = restTemplate.postForObject(
+                "http://localhost:" + port + "/faculty",
+                newFaculty,
                 Faculty.class
         );
 
+
+        createdFaculty.setName("LOLOLOL");
+        ResponseEntity<Faculty> response = restTemplate.exchange(
+                "http://localhost:" + port + "/faculty" ,
+                HttpMethod.PUT,
+                new HttpEntity<>(createdFaculty),
+                Faculty.class
+        );
+
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
+
+
+        Faculty updatedFaculty = response.getBody();
+        assertThat(updatedFaculty).isNotNull();
+        assertThat(updatedFaculty.getId()).isEqualTo(createdFaculty.getId());
+        assertThat(updatedFaculty.getName()).isEqualTo("LOLOLOL");
     }
 
+
     @Test
-    public void delete() {
+    void delete() {
         faculty = facultyRepository.save(faculty);
 
 
@@ -131,6 +145,20 @@ class FacultyControllerTest {
 
 
     }
+
+
+
+
+    @Test
+    void testFindNameOrColor() {
+        ResponseEntity<Faculty[]> entity = restTemplate.getForEntity(
+                "http://localhost:" + port + "/faculty",
+                Faculty[].class
+        );
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+    }
+
+
 
 
 

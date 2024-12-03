@@ -2,7 +2,9 @@ package ru.hogwarts.school.homework29.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.homework29.model.Avatar;
 import ru.hogwarts.school.homework29.model.Student;
@@ -42,6 +44,9 @@ public class StudentService {
     }
 
     public Student update(Student student) {
+        if (!studentRepository.existsById(student.getId())){
+            throw new ErrorResponseException(HttpStatusCode.valueOf(404));
+        }
         return studentRepository.save(student);
     }
 

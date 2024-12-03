@@ -44,6 +44,7 @@ public class FacultyController {
 
     }
 
+
     @DeleteMapping ("{id}")
     public ResponseEntity<Faculty> delate(@PathVariable Long id) {
         service.delete(id);

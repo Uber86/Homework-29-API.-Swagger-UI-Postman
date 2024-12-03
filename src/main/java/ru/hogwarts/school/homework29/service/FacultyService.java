@@ -2,7 +2,9 @@ package ru.hogwarts.school.homework29.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponseException;
 import ru.hogwarts.school.homework29.model.Faculty;
 import ru.hogwarts.school.homework29.repositories.FacultyRepository;
 
@@ -26,7 +28,10 @@ public class FacultyService {
         return facultyRepository.findById(id).get();
     }
 
-    public Faculty update(Faculty faculty) {
+    public Faculty update(Faculty faculty)  {
+        if (!facultyRepository.existsById(faculty.getId())){
+            throw new ErrorResponseException(HttpStatusCode.valueOf(404));
+        }
         return facultyRepository.save(faculty);
     }
 
