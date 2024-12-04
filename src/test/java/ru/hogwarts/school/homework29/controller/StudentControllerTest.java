@@ -71,83 +71,37 @@ class StudentControllerTest {
     @Test
 
     void shouldCreateStudent() throws Exception {
-
-        // given
-
         Long studentId = 1L;
-
         Student student = new Student("Ivan", 20);
-
         Student savedStudent = new Student("Ivan", 20);
 
         savedStudent.setId(studentId);
-
-
-
         when(studentService.create(student)).thenReturn(savedStudent);
-
-
-
-        // when
-
-        ResultActions perform = mockMvc.perform(post("/students")
-
+        ResultActions perform = mockMvc.perform(post("/student")
                 .contentType(MediaType.APPLICATION_JSON)
-
                 .content(objectMapper.writeValueAsString(student)));
-
-
-
-        // then
-
         perform
-
                 .andExpect(jsonPath("$.id").value(savedStudent.getId()))
-
                 .andExpect(jsonPath("$.name").value(savedStudent.getName()))
-
                 .andExpect(jsonPath("$.age").value(savedStudent.getAge()))
-
                 .andDo(print());
-
     }
 
     @Test
 
     void shouldUpdateStudent() throws Exception {
-
-        // given
-
         Long studentId = 1L;
-
         Student student = new Student("Ivan", 20);
 
-
-
         when(studentService.update(student)).thenReturn(student);
-
-
-
-        // when
-
-        ResultActions perform = mockMvc.perform(put("/students/{id}", studentId)
-
+        ResultActions perform = mockMvc.perform(put("/student/{id}", studentId)
                 .contentType(MediaType.APPLICATION_JSON)
-
                 .content(objectMapper.writeValueAsString(student)));
 
-
-
-        // then
-
         perform
-
                 .andExpect(jsonPath("$.name").value(student.getName()))
-
                 .andExpect(jsonPath("$.age").value(student.getAge()))
-
                 .andDo(print());
-
     }
 
 }
