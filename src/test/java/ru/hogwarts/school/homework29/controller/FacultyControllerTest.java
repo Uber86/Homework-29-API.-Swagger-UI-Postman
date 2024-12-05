@@ -121,6 +121,21 @@ class FacultyControllerTest {
 
     }
 
+    @Test
+    void testDelFaculty() throws Exception {
+        Long id = 1L;
+        Faculty faculty = new Faculty("Artur", "Blue");
+
+
+        ResultActions perform = mockMvc.perform(delete("/faculty/{id}", id));
+
+        perform
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+
+
 
 
 

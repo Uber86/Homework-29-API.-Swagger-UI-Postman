@@ -126,5 +126,18 @@ class StudentControllerTest {
 
     }
 
+    @Test
+    void testDelStudent() throws Exception {
+        Long idStu = 1L;
+        Student student = new Student("Artur", 12);
+
+
+        ResultActions perform = mockMvc.perform(delete("/student/{id}", idStu));
+
+        perform
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
 
 }
