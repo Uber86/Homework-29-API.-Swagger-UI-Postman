@@ -1,6 +1,7 @@
 package ru.hogwarts.school.homework29.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +14,7 @@ import ru.hogwarts.school.homework29.service.StudentService;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -71,26 +73,6 @@ class StudentControllerTest {
                 .andDo(print());
     }
 
-    /*@Test
-    void shouldUpdateStudent() throws Exception {
-        Long studentId = 1L;
-        Student student = new Student("Ivan", 21);
-        Student student1 = new Student("Ivan", 20);
-
-        when(studentService.create(any(Student.class))).thenReturn(student);
-        when(studentService.update(student)).thenReturn(student1);
-        ResultActions perform = mockMvc.perform(put("/student")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(student)));
-
-        perform
-                .andExpect(jsonPath("$id").value(student1.getId()))
-                .andExpect(jsonPath("$.name").value(student1.getName()))
-                .andExpect(jsonPath("$.age").value(student1.getAge()))
-                .andDo(print());
-    }
-
-     */
 
     @Test
     void shouldUpdate() throws Exception {
@@ -121,12 +103,14 @@ class StudentControllerTest {
 
     @Test
     void testGetMinMax() throws Exception {
-        List <Student> list = List.of(
+            List <Student> list = asList(
         new Student("Test1", 10),
         new Student("Test2", 13),
         new Student("Test3", 17));
         int min = 10;
         int max = 13;
+        JSONObject find = new JSONObject();
+        find = (JSONObject) studentService.findBetween(min, max);
 
 
 
@@ -141,16 +125,6 @@ class StudentControllerTest {
                 .andDo(print());
 
     }
-    /*@Test
-    public void givenGreetURIWithQueryParameter_whenMockMVC_thenResponseOK() throws Exception {
-        this.mockMvc.perform(get("/student")
-                        .param("name", "John Doe")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.message").value("Hello World John Doe!!!"));
-    }
-
-     */
-
 
 
 }
